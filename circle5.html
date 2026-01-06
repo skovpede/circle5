@@ -1,0 +1,409 @@
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .circle {
+        --base-rotation: 0deg;
+        --rotation-duration: 250ms;
+        height: 914px;
+        width: 914px;
+        clip-path: circle();
+    }
+
+    .note {
+        position: absolute;
+        transform: translate(387px, 294px) rotate(-60deg) rotate(calc(var(--i) * 30deg + var(--base-rotation))) translate(225px, -128px) rotate(60deg) perspective(272px) rotateX(-46deg);
+        text-align: center;
+        font-size: 36px;
+        font-family: monospace;
+        transition: transform var(--rotation-duration) cubic-bezier(0, 0.89, 0.54, 1.16);
+        height: 325px;
+    }
+
+    .minor-circle {
+        position: absolute;
+        left: 100px;
+        top: 134px;
+        height: 646px;
+        width: 714px;
+        clip-path: circle();
+    }
+
+    .minor-circle .note {
+        transform: translate(287px, 160px) rotate(-60deg) rotate(calc(var(--i) * 30deg + var(--base-rotation))) translate(225px, -128px) rotate(60deg) perspective(272px) rotateX(-46deg);
+    }
+
+    .major,
+    .minor {
+        width: 140px;
+        user-select: none;
+    }
+
+    .major {
+        height: 100px;
+        padding-top: 16px;
+    }
+
+    .minor {
+        height: 250px;
+        padding-top: 44px;
+        margin-top: 75px;
+    }
+
+    .major,
+    .minor {
+        transition: opacity 1s;
+    }
+
+    .major+.minor {
+        margin-top: 0;
+    }
+
+    .note:nth-child(1) .major {
+        background-color: #ffc9c0;
+    }
+
+    .note:nth-child(1) .minor {
+        background-color: #f9afa9;
+    }
+
+    .note:nth-child(2) .major {
+        background-color: #fac6d3;
+    }
+
+    .note:nth-child(2) .minor {
+        background-color: #f48fb1;
+    }
+
+    .note:nth-child(3) .major {
+        background-color: #d8bde6;
+    }
+
+    .note:nth-child(3) .minor {
+        background-color: #c68fd0;
+    }
+
+    .note:nth-child(4) .major {
+        background-color: #b8c3e6;
+    }
+
+    .note:nth-child(4) .minor {
+        background-color: #9fa8d2;
+    }
+
+    .note:nth-child(5) .major {
+        background-color: #b2d7f9;
+    }
+
+    .note:nth-child(5) .minor {
+        background-color: #8fc4f7;
+    }
+
+    .note:nth-child(6) .major {
+        background-color: #a7e4f2;
+    }
+
+    .note:nth-child(6) .minor {
+        background-color: #7ce0f0;
+    }
+
+    .note:nth-child(7) .major {
+        background-color: #a7dad6;
+    }
+
+    .note:nth-child(7) .minor {
+        background-color: #7dd3ce;
+    }
+
+    .note:nth-child(8) .major {
+        background-color: #bedfc0;
+    }
+
+    .note:nth-child(8) .minor {
+        background-color: #9ecfaa;
+    }
+
+    .note:nth-child(9) .major {
+        background-color: #d3e8bd;
+    }
+
+    .note:nth-child(9) .minor {
+        background-color: #e2f0a2;
+    }
+
+    .note:nth-child(10) .major {
+        background-color: #fff9ba;
+    }
+
+    .note:nth-child(10) .minor {
+        background-color: #fff8a1;
+    }
+
+    .note:nth-child(11) .major {
+        background-color: #fff4a7;
+    }
+
+    .note:nth-child(11) .minor {
+        background-color: #fff07d;
+    }
+
+    .note:nth-child(12) .major {
+        background-color: #ffd0b2;
+    }
+
+    .note:nth-child(12) .minor {
+        background-color: #ffad8f;
+    }
+
+    .note.full:nth-child(1) .major {
+        background-color: #ff7961;
+    }
+
+    .note.full:nth-child(1) .minor {
+        background-color: #f44336;
+    }
+
+    .note.full:nth-child(2) .major {
+        background-color: #f06292;
+    }
+
+    .note.full:nth-child(2) .minor {
+        background-color: #e91e63;
+    }
+
+    .note.full:nth-child(3) .major {
+        background-color: #ba68c8;
+    }
+
+    .note.full:nth-child(3) .minor {
+        background-color: #9c27b0;
+    }
+
+    .note.full:nth-child(4) .major {
+        background-color: #7986cb;
+    }
+
+    .note.full:nth-child(4) .minor {
+        background-color: #3f51b5;
+    }
+
+    .note.full:nth-child(5) .major {
+        background-color: #64b5f6;
+    }
+
+    .note.full:nth-child(5) .minor {
+        background-color: #2196f3;
+    }
+
+    .note.full:nth-child(6) .major {
+        background-color: #4dd0e1;
+    }
+
+    .note.full:nth-child(6) .minor {
+        background-color: #00bcd4;
+    }
+
+    .note.full:nth-child(7) .major {
+        background-color: #4db6ac;
+    }
+
+    .note.full:nth-child(7) .minor {
+        background-color: #009688;
+    }
+
+    .note.full:nth-child(8) .major {
+        background-color: #81c784;
+    }
+
+    .note.full:nth-child(8) .minor {
+        background-color: #4caf50;
+    }
+
+    .note.full:nth-child(9) .major {
+        background-color: #aed581;
+    }
+
+    .note.full:nth-child(9) .minor {
+        background-color: #cddc39;
+    }
+
+    .note.full:nth-child(10) .major {
+        background-color: #fff176;
+    }
+
+    .note.full:nth-child(10) .minor {
+        background-color: #ffeb3b;
+    }
+
+    .note.full:nth-child(11) .major {
+        background-color: #ffd54f;
+    }
+
+    .note.full:nth-child(11) .minor {
+        background-color: #ffc107;
+    }
+
+    .note.full:nth-child(12) .major {
+        background-color: #ff8a65;
+    }
+
+    .note.full:nth-child(12) .minor {
+        background-color: #ff5722;
+    }
+
+    i {
+        display: block;
+        font-size: 24px;
+        font-style: normal;
+        line-height: 14px;
+    }
+
+    .minor i {
+        margin-top: 8px;
+    }
+
+    .inner {
+        position: absolute;
+        top: 266px;
+        left: 266px;
+        width: 380px;
+        height: 380px;
+        background-color: white;
+        border-radius: 50%;
+    }
+</style>
+
+<script>
+    function rotate(event) {
+        const note = event.target.closest('.note');
+        if (!note) return;
+        const circle = note.closest('.circle');
+        const i = parseInt(note.style.getPropertyValue('--i'));
+
+        const newAngleSimple = i * -30;
+        const currentAngle = parseInt(getComputedStyle(circle).getPropertyValue('--base-rotation')) || 0;
+        const diffSimple = newAngleSimple - currentAngle;
+        const fullRotationDegrees = Math.floor(diffSimple / 360) * 360;
+        const diffClockwise = diffSimple - fullRotationDegrees;
+        const diff = diffClockwise > 180 ? diffClockwise - 360 : diffClockwise;
+        const duration = Math.max(200, Math.abs(diff) / 30 * 100); // 100ms per note
+        const newAngle = currentAngle + diff;
+        circle.style.setProperty('--rotation-duration', `${duration}ms`);
+        circle.style.setProperty('--base-rotation', `${newAngle}deg`);
+
+        updateNotes(circle, i);
+    }
+
+    function updateNotes(circle, i) {
+        const minorCircle = circle.querySelector('.minor-circle');
+        const majorCircle = circle.querySelector('.major-circle');
+        const major = relative => majorCircle.children[(relative + 12 + i) % 12];
+        const minor = relative => minorCircle.children[(relative + 12 + i) % 12];
+
+        // Clear previous states
+        circle.querySelectorAll('.full').forEach(el => el.classList.remove('full'));
+        circle.querySelectorAll('i').forEach(el => el.textContent = '');
+
+        // Set new states
+        major(0).classList.add('full');
+        minor(0).classList.add('full');
+        major(-1).classList.add('full');
+        minor(-1).classList.add('full');
+        major(1).classList.add('full');
+        minor(1).classList.add('full');
+        minor(2).classList.add('full');
+
+        // Set chord labels
+        major(0).querySelector('i').textContent = 'I';
+        minor(-1).querySelector('i').textContent = 'ii';
+        minor(1).querySelector('i').textContent = 'iii';
+        major(-1).querySelector('i').textContent = 'IV';
+        major(1).querySelector('i').textContent = 'V';
+        minor(0).querySelector('i').textContent = 'vi';
+        minor(2).querySelector('i').textContent = 'vii°';
+
+    }
+</script>
+
+<div class="circle" onclick="rotate(event)">
+    <div class="major-circle">
+        <div class="note" style="--i: 0;">
+            <div class="major">C<i></i></div>
+        </div>
+        <div class="note" style="--i: 1;">
+            <div class="major">G<i></i></div>
+        </div>
+        <div class="note" style="--i: 2;">
+            <div class="major">D<i></i></div>
+        </div>
+        <div class="note" style="--i: 3;">
+            <div class="major">A<i></i></div>
+        </div>
+        <div class="note" style="--i: 4;">
+            <div class="major">E<i></i></div>
+        </div>
+        <div class="note" style="--i: 5;">
+            <div class="major">B<i></i></div>
+        </div>
+        <div class="note" style="--i: 6;">
+            <div class="major">F#<i></i></div>
+        </div>
+        <div class="note" style="--i: 7;">
+            <div class="major">C#<i></i></div>
+        </div>
+        <div class="note" style="--i: 8;">
+            <div class="major">Ab<i></i></div>
+        </div>
+        <div class="note" style="--i: 9;">
+            <div class="major">Eb<i></i></div>
+        </div>
+        <div class="note" style="--i: 10;">
+            <div class="major">Bb<i></i></div>
+        </div>
+        <div class="note" style="--i: 11;">
+            <div class="major">F<i></i></div>
+        </div>
+    </div>
+    <div class="minor-circle">
+        <div class="note" style="--i: 0;">
+            <div class="minor">Am<i></i></div>
+        </div>
+        <div class="note" style="--i: 1;">
+            <div class="minor">Em<i></i></div>
+        </div>
+        <div class="note" style="--i: 2;">
+            <div class="minor">Bm<i></i></div>
+        </div>
+        <div class="note" style="--i: 3;">
+            <div class="minor">F#m<i></i></div>
+        </div>
+        <div class="note" style="--i: 4;">
+            <div class="minor">C#m<i></i></div>
+        </div>
+        <div class="note" style="--i: 5;">
+            <div class="minor">G#m<i></i></div>
+        </div>
+        <div class="note" style="--i: 6;">
+            <div class="minor">D#m<i></i></div>
+        </div>
+        <div class="note" style="--i: 7;">
+            <div class="minor">A#m<i></i></div>
+        </div>
+        <div class="note" style="--i: 8;">
+            <div class="minor">Fm<i></i></div>
+        </div>
+        <div class="note" style="--i: 9;">
+            <div class="minor">Cm<i></i></div>
+        </div>
+        <div class="note" style="--i: 10;">
+            <div class="minor">Gm<i></i></div>
+        </div>
+        <div class="note" style="--i: 11;">
+            <div class="minor">Dm<i></i></div>
+        </div>
+    </div>
+    <div class="inner"></div>
+</div>
